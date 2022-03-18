@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+  margin-left: 25px; 
+  margin-right: 25px;
+}
+
+.columns-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
