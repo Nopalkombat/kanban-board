@@ -1,3 +1,20 @@
 .card{
-    /* border: 1px solid blueviolet; */
+    background: white;
+    margin: .5rem .25rem;
+    padding: .5rem;
+    text-align: left;
+    transition: all .3s ease-in-out;
+}
+
+.cardTitle{
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.cardContent{
+    font-size: .9rem;
+}
+
+.card:hover{
+    box-shadow: 1px 1px 12px -6px;
 }
