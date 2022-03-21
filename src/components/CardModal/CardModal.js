@@ -27,7 +27,7 @@ export function CardModal({ CardDetails }) {
     modalStatus: status,
   };
   const [values, handleInputChange] = useForm(initialCard);
-  console.table(values);
+
   function openModal() {
     setIsOpen(true);
   }

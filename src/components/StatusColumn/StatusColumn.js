@@ -2,10 +2,11 @@
 import React from 'react';
 import Card from '../Card/Card';
 import './StatusColumn.css';
-import CardData from '../../data/CardData';
+import { getStorageItem } from '../../data/HandleLocalStorage';
 
 // eslint-disable-next-line react/prop-types
 const StatusColumn = ({ title }) => {
+  const CardData = getStorageItem('CardData');
   const CardInfo = CardData.filter(
     (cardInfo) => cardInfo.status === title.toLowerCase().replace(' ', '')
   );
