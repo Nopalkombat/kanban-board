@@ -2,6 +2,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useForm } from '../../hooks/useForm';
+import { setStorageItem, getStorageItem } from '../../data/HandleLocalStorage';
 
 const customStyles = {
   content: {
@@ -34,6 +35,21 @@ export function CardModal({ CardDetails }) {
 
   function closeModal() {
     setIsOpen(false);
+    modifyData();
+  }
+
+  // TODO: Can improve with context
+  function modifyData() {
+    const CardData = getStorageItem('CardData');
+    const currentCardIndex = CardData.findIndex((Card) => Card.id === CardDetails.id);
+    const currentCardContent = {
+      title: values.modalTitle,
+      content: values.modalContent,
+      date: values.modalDate,
+      status: values.modalStatus,
+    };
+    CardData.splice(currentCardIndex, 1, currentCardContent);
+    setStorageItem('CardData', CardData);
   }
 
   return (
