@@ -5,12 +5,13 @@ import { CardModal } from '../CardModal/CardModal';
 
 const Card = (props) => {
   // eslint-disable-next-line prettier/prettier
-  const {title, content} = props;
+  const { title, content, date } = props;
   return (
     <>
       <div className="card">
         <div className="cardTitle">{title}</div>
         <div className="cardContent">{content}</div>
+        <div className="date">{date}</div>
         <CardModal CardDetails={props} />
       </div>
     </>
@@ -18,7 +19,3 @@ const Card = (props) => {
 };
 
 export default Card;
-
-//handle click on Card
-//open pop up with card information
-//localstorage

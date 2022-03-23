@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { useForm } from '../../hooks/useForm';
 import { setStorageItem, getStorageItem } from '../../data/HandleLocalStorage';
+import { GlobalContext } from '../App/App';
 
 const customStyles = {
   content: {
@@ -19,9 +20,11 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 export function CardModal({ CardDetails }) {
+  const { setCardsState } = useContext(GlobalContext);
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const { title, content, date, status } = CardDetails;
+  const { id, title, content, date, status } = CardDetails;
   const initialCard = {
+    modalId: id,
     modalTitle: title,
     modalContent: content,
     modalDate: date,
@@ -38,18 +41,22 @@ export function CardModal({ CardDetails }) {
     modifyData();
   }
 
-  // TODO: Can improve with context
   function modifyData() {
-    const CardData = getStorageItem('CardData');
-    const currentCardIndex = CardData.findIndex((Card) => Card.id === CardDetails.id);
+    let CardData = getStorageItem('CardData');
+    // const currentCardIndex = CardData.filter((Card) => Card.id === CardDetails.id);
+    const currentNotMyCard = CardData.filter((Card) => Card.id !== CardDetails.id);
     const currentCardContent = {
+      id: values.modalId,
       title: values.modalTitle,
       content: values.modalContent,
       date: values.modalDate,
       status: values.modalStatus,
     };
-    CardData.splice(currentCardIndex, 1, currentCardContent);
+
+    // CardData.splice(currentCardIndex, 1, currentCardContent);
+    CardData = [...currentNotMyCard, currentCardContent];
     setStorageItem('CardData', CardData);
+    setCardsState(getStorageItem('CardData'));
   }
 
   return (
