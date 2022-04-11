@@ -1,12 +1,12 @@
 import './App.css';
 import StatusColumn from '../StatusColumn/StatusColumn';
-import { handleLocalStorage, getStorageItem } from '../../data/HandleLocalStorage';
+import { startLocalStorage, getStorageItem } from '../../data/HandleLocalStorage';
 import { createContext, useState } from 'react';
 
 export const GlobalContext = createContext(null);
 
 function App() {
-  handleLocalStorage();
+  startLocalStorage();
   const ColumnTitles = getStorageItem('StatusColumns');
   const [cardsState, setCardsState] = useState(getStorageItem('CardData'));
   const sortedCards = cardsState.sort(({ date: date1 }, { date: date2 }) =>

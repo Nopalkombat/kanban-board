@@ -1,7 +1,7 @@
 import CardData from './CardData';
 import StatusColumns from './StatusColumns';
 
-function handleLocalStorage() {
+function startLocalStorage() {
   localStorage.getItem('CardData') || localStorage.setItem('CardData', JSON.stringify(CardData));
   localStorage.getItem('StatusColumns') ||
     localStorage.setItem('StatusColumns', JSON.stringify(StatusColumns));
@@ -15,4 +15,6 @@ function setStorageItem(key, content) {
   localStorage.setItem(key, JSON.stringify(content));
 }
 
-export { handleLocalStorage, getStorageItem, setStorageItem };
+//remove item from storage
+
+export { startLocalStorage, getStorageItem, setStorageItem };
