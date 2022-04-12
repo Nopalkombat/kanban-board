@@ -1,97 +1,80 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
-import Modal from 'react-modal';
+import React, { useState, useContext } from 'react';
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
 import { useForm } from '../../hooks/useForm';
 import { setStorageItem, getStorageItem } from '../../data/HandleLocalStorage';
 import { GlobalContext } from '../App/App';
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+const CardModal = ({ CardDetails }) => {
+  const [open, setOpen] = useState(false);
 
-// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-Modal.setAppElement('#root');
-
-export function CardModal({ CardDetails }) {
   const { setCardsState } = useContext(GlobalContext);
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const { id, title, content, date, status } = CardDetails;
-  const initialCard = {
-    modalId: id,
-    modalTitle: title,
-    modalContent: content,
-    modalDate: date,
-    modalStatus: status,
-  };
-  const [values, handleInputChange] = useForm(initialCard);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-    modifyData();
-  }
+  const [values, handleInputChange] = useForm(CardDetails);
 
   function modifyData() {
-    let CardData = getStorageItem('CardData');
-    // const currentCardIndex = CardData.filter((Card) => Card.id === CardDetails.id);
+    const CardData = getStorageItem('CardData');
     const currentNotMyCard = CardData.filter((Card) => Card.id !== CardDetails.id);
-    const currentCardContent = {
-      id: values.modalId,
-      title: values.modalTitle,
-      content: values.modalContent,
-      date: values.modalDate,
-      status: values.modalStatus,
-    };
+    const currentCardContent = { ...values };
 
-    // CardData.splice(currentCardIndex, 1, currentCardContent);
-    CardData = [...currentNotMyCard, currentCardContent];
-    setStorageItem('CardData', CardData);
+    const newCardData = [...currentNotMyCard, currentCardContent];
+    setStorageItem('CardData', newCardData);
     setCardsState(getStorageItem('CardData'));
   }
 
+  function handleDelete() {
+    const CardData = getStorageItem('CardData');
+    const currentNotMyCard = CardData.filter((Card) => Card.id !== CardDetails.id);
+    setStorageItem('CardData', currentNotMyCard);
+    setCardsState(getStorageItem('CardData'));
+  }
+
+  const onOpenModal = () => {
+    setOpen(true);
+  };
+
+  const onCloseModal = () => {
+    setOpen(false);
+    modifyData();
+  };
+
   return (
     <div>
-      <button onClick={openModal}>Open Modal</button>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
+      <button onClick={onOpenModal}>Open modal</button>
+      <Modal open={open} onClose={onCloseModal} center>
+        <h2>Simple centered modal</h2>
         <div>
+          <span>ElementID: {values.id}</span>
+          <br />
           <input
-            name="modalTitle"
+            name="id"
             type="text"
-            value={values.modalTitle}
+            value={values.title}
             onChange={handleInputChange}
           ></input>{' '}
           <br />
           <textarea
-            name="modalContent"
-            value={values.modalContent}
+            name="content"
+            value={values.content}
             onChange={handleInputChange}
           ></textarea>{' '}
           <br />
-          <span name="modalDate" onChange={handleInputChange}>
-            {values.modalDate}
+          <span name="date" onChange={handleInputChange}>
+            {values.date}
           </span>{' '}
           <br />
-          <span name="modalStatus" onChange={handleInputChange}>
-            {values.modalStatus}
-          </span>{' '}
+          <select name="status" value={values.status} onChange={handleInputChange}>
+            <option value="backlog">Backlog</option>
+            <option value="todo">To do</option>
+            <option value="inprogress">In Progress</option>
+            <option value="done">Done</option>
+          </select>
           <br />
+          <button onClick={handleDelete}> Delte Card</button>
         </div>
       </Modal>
     </div>
   );
-}
+};
+
+export default CardModal;

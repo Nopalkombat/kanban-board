@@ -9,8 +9,8 @@ const StatusColumn = ({ title, cards }) => {
   return (
     <div className="statusColumn">
       <h3>{title}</h3>
-      {cards.map((cardContent, id) => (
-        <Card key={id} {...cardContent} />
+      {cards.map((cardContent) => (
+        <Card key={cardContent.id} {...cardContent} />
       ))}
     </div>
   );
