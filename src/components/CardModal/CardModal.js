@@ -5,6 +5,7 @@ import { Modal } from 'react-responsive-modal';
 import { useForm } from '../../hooks/useForm';
 import { setStorageItem, getStorageItem } from '../../data/HandleLocalStorage';
 import { GlobalContext } from '../App/App';
+import './CardModal.css';
 
 const CardModal = ({ CardDetails }) => {
   const [open, setOpen] = useState(false);
@@ -40,36 +41,18 @@ const CardModal = ({ CardDetails }) => {
 
   return (
     <div>
-      <button onClick={onOpenModal}>Open modal</button>
+      <a onClick={onOpenModal}></a>
       <Modal open={open} onClose={onCloseModal} center>
-        <h2>Simple centered modal</h2>
-        <div>
-          <span>ElementID: {values.id}</span>
-          <br />
-          <input
-            name="id"
-            type="text"
-            value={values.title}
-            onChange={handleInputChange}
-          ></input>{' '}
-          <br />
-          <textarea
-            name="content"
-            value={values.content}
-            onChange={handleInputChange}
-          ></textarea>{' '}
-          <br />
-          <span name="date" onChange={handleInputChange}>
-            {values.date}
-          </span>{' '}
-          <br />
+        <h2>{values.title.length > 50 ? values.title.substring(0, 50) + '...' : values.title}</h2>
+        <div className="cardInfo">
+          <input name="title" type="text" value={values.title} onChange={handleInputChange}></input>{' '}
+          <textarea name="content" value={values.content} onChange={handleInputChange}></textarea>{' '}
           <select name="status" value={values.status} onChange={handleInputChange}>
             <option value="backlog">Backlog</option>
             <option value="todo">To do</option>
             <option value="inprogress">In Progress</option>
             <option value="done">Done</option>
           </select>
-          <br />
           <button onClick={handleDelete}> Delte Card</button>
         </div>
       </Modal>

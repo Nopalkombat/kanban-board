@@ -1,20 +1,29 @@
-.card{
-    background: white;
-    margin: .5rem .25rem;
-    padding: .5rem;
-    text-align: left;
-    transition: all .3s ease-in-out;
+.card {
+  position: relative;
+  background: #2f9c95;
+  margin: 0.5rem 0;
+  padding: 1rem;
+  text-align: left;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
 }
 
-.cardTitle{
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+.cardTitle {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  overflow-wrap: break-word;
 }
 
-.cardContent{
-    font-size: .9rem;
+.cardContent {
+  font-size: 0.9rem;
 }
 
-.card:hover{
-    box-shadow: 1px 1px 12px -6px;
+.card:hover {
+  box-shadow: 1px 1px 12px -6px;
+}
+
+p {
+  margin: 0;
 }
