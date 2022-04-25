@@ -8,7 +8,7 @@ const Card = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { title, content, date, status } = props;
   return (
-    <div className="card" data-testid="card">
+    <div className="card">
       <p className="cardTitle">{title}</p>
       <p className="cardContent">
         {content.length > 100 ? content.substring(0, 100) + '...' : content}

@@ -15,6 +15,4 @@ function setStorageItem(key, content) {
   localStorage.setItem(key, JSON.stringify(content));
 }
 
-//remove item from storage
-
 export { startLocalStorage, getStorageItem, setStorageItem };

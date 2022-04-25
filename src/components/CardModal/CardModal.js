@@ -41,7 +41,7 @@ const CardModal = ({ CardDetails }) => {
 
   return (
     <div>
-      <a onClick={onOpenModal}></a>
+      <a href="!#" onClick={onOpenModal}></a>
       <Modal open={open} onClose={onCloseModal} center>
         <h2>{values.title.length > 50 ? values.title.substring(0, 50) + '...' : values.title}</h2>
         <div className="cardInfo">
@@ -53,7 +53,7 @@ const CardModal = ({ CardDetails }) => {
             <option value="inprogress">In Progress</option>
             <option value="done">Done</option>
           </select>
-          <button onClick={handleDelete}> Delte Card</button>
+          <button onClick={handleDelete}> Delete Card</button>
         </div>
       </Modal>
     </div>
